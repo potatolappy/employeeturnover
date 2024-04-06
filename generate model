@@ -1,0 +1,38 @@
+from model import *
+import pickle
+
+
+# reading the employee dataset
+data = pd.read_csv('D:\DS\Employee Turnover\IBMemployee.csv')
+
+# dropping unnecessary variables and streamlined to just 11
+# to mimic EAZY's database
+data = data[["Attrition",
+             "Age",
+             "YearsWithCurrManager",
+             "JobInvolvement",
+             "YearsSinceLastPromotion",
+             "JobRole",
+             "Gender",
+             "TotalWorkingYears",
+             "NumCompaniesWorked",
+             "PerformanceRating",
+             "YearsInCurrentRole"]]
+
+# Set train and test set
+# 80% training data, 20% test data to check accuracy
+from sklearn.model_selection import train_test_split
+train_set, test_set = train_test_split(data, test_size=0.2, random_state=42)
+
+
+# Transform data
+prepared_data_train = pipeline_transformer(train_set.drop("Attrition", axis=1))
+
+
+# Instantiate RandomForestClassifier
+forest_clf = RandomForestClassifier(n_estimators=50, random_state=44)
+forest_clf.fit(prepared_data_train, train_set["Attrition"])
+
+# Save the model
+with open('D:/forest_model.bin', 'wb') as f_out:
+    pickle.dump(forest_clf, f_out)
