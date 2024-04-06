@@ -1,0 +1,17 @@
+from model import *
+import pickle
+from sklearn.metrics import classification_report
+
+# Load the trained model
+with open('D:/forest_model.bin', 'rb') as f_in:
+    forest_model = pickle.load(f_in)
+
+# Transform the test data
+prepared_data_test = full_pipeline.transform(test_set.drop("Attrition", axis=1))
+
+# Make predictions
+predictions = forest_model.predict(prepared_data_test)
+
+# Generate classification report
+report = classification_report(test_set["Attrition"], predictions)
+print(report)
