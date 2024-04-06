@@ -1,0 +1,42 @@
+import pickle
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
+import pandas as pd
+from model import *
+
+
+def predict_attrition(config=None, model=None):
+    if config is None:
+        Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
+        filename = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
+        print("Loading file: " + filename)
+        attrition_df_temp = pd.read_csv(filename)
+        config = attrition_df_temp.copy()
+
+    if model is None:
+        with open('D:/forest_model.bin', 'rb') as file:
+            model = pickle.load(file)
+            file.close()
+
+    print(attrition_df_temp)
+    data_temp_dropped_X = attrition_df_temp[
+        ["Age",
+         "YearsWithCurrManager",
+         "JobInvolvement",
+         "YearsSinceLastPromotion",
+         "JobRole",
+         "Gender",
+         "TotalWorkingYears",
+         "NumCompaniesWorked",
+         "PerformanceRating",
+         "YearsInCurrentRole"]].copy()
+    data_temp_dropped_X = pipeline_transformer(data_temp_dropped_X)
+    y_pred = model.predict(data_temp_dropped_X)
+
+    print("Result")
+    print(y_pred)
+
+    return y_pred
+
+# Example usage:
+predict_attrition()
