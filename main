@@ -1,9 +1,15 @@
 import pickle
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
-import pandas as pd
-from model import *
+from class_function import *
+from sklearn.metrics import classification_report
 
+# landing page
+print("=" * 40)
+print(" Employee Turnover Prediction - Version April 2024")
+print(" Please wait before selecting your file")
+print("=" * 40)
+print()
 
 def predict_attrition(config=None, model=None):
     if config is None:
@@ -33,10 +39,32 @@ def predict_attrition(config=None, model=None):
     data_temp_dropped_X = pipeline_transformer(data_temp_dropped_X)
     y_pred = model.predict(data_temp_dropped_X)
 
-    print("Result")
-    print(y_pred)
+    # Calculate percentage of 'Yes' predictions
+    yes_count = sum(1 for prediction in y_pred if prediction == 'Yes')
+    total_count = len(y_pred)
+    percentage_yes = (yes_count / total_count) * 100
+    print("-" * 40)
+    print("Attrition Prediction:")
+    print(f"Prediction - Employee at risk of resignations: {percentage_yes:.2f}%")
+    print(f"Total predicted at risk: {yes_count} people")
+    print("-" * 40)
+
+    # Feature Importance Analysis
+    if hasattr(model, 'feature_importances_'):
+        feature_importance = model.feature_importances_
+        # Assuming you keep track of feature names separately
+        feature_names = ["Age", "YearsWithCurrManager", "JobInvolvement", "YearsSinceLastPromotion",
+                         "JobRole", "Gender", "TotalWorkingYears", "NumCompaniesWorked",
+                         "PerformanceRating", "YearsInCurrentRole"]
+        importance_dict = dict(zip(feature_names, feature_importance))
+        sorted_importance = sorted(importance_dict.items(), key=lambda x: x[1], reverse=True)
+        print("\nRanking - Top Driving Reasons for Resignations:")
+        print("-" * 40)
+        for feature, importance in sorted_importance:
+            print(f"{feature}: {importance:.4f}")
 
     return y_pred
 
 # Example usage:
 predict_attrition()
+
