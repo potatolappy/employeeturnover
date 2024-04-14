@@ -67,5 +67,3 @@ def pipeline_transformer(data):
     return prepared_data
 
 
-# from raw data to processed data in 2 steps
-# preprocessed_df = preprocess_cat_columns(data)
