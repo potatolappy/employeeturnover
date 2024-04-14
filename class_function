@@ -66,4 +66,3 @@ def pipeline_transformer(data):
     prepared_data = full_pipeline.fit_transform(data)
     return prepared_data
 
-
