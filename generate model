@@ -1,6 +1,5 @@
-from model import *
+from class_function import *
 import pickle
-
 
 # reading the employee dataset
 data = pd.read_csv('D:\DS\Employee Turnover\IBMemployee.csv')
@@ -36,3 +35,4 @@ forest_clf.fit(prepared_data_train, train_set["Attrition"])
 # Save the model
 with open('D:/forest_model.bin', 'wb') as f_out:
     pickle.dump(forest_clf, f_out)
+
