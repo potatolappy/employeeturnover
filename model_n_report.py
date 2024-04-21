@@ -1,11 +1,12 @@
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 from class_function import *
 import pickle
 
 # reading the employee dataset
 data = pd.read_csv('D:\DS\Employee Turnover\IBMemployee.csv')
 
-# dropping unnecessary variables and streamlined to just 11
-# to mimic EAZY's database
+# dropping unnecessary variables to mimic EAZY's database
 data = data[["Attrition",
              "Age",
              "YearsWithCurrManager",
@@ -18,10 +19,13 @@ data = data[["Attrition",
              "PerformanceRating",
              "YearsInCurrentRole"]]
 
-# Set train and test set
-# 80% training data, 20% test data to check accuracy
+# Set train and test set, 80 - 20
 from sklearn.model_selection import train_test_split
 train_set, test_set = train_test_split(data, test_size=0.2, random_state=42)
+
+# checking len of train and test dataset
+print(train_set)
+print(test_set)
 
 # Transform data
 prepared_data_train = pipeline_transformer(train_set.drop("Attrition", axis=1))
@@ -34,6 +38,7 @@ forest_clf.fit(prepared_data_train, train_set["Attrition"])
 with open('D:/forest_model.bin', 'wb') as f_out:
     pickle.dump(forest_clf, f_out)
 
+# import classification report
 from sklearn.metrics import classification_report
 
 # Load the test set
@@ -54,4 +59,3 @@ predictions = forest_clf.predict(prepared_data_test)
 report = classification_report(y_test, predictions)
 
 print(report)
-
