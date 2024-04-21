@@ -1,4 +1,4 @@
-# turnover prediction program
+# Turnover prediction program
 
 this is to backup the ML script
 a mix and match from opensource projects, also edited to fit my needs
@@ -16,12 +16,12 @@ the file contains:
 
 ``` forest_model.bin ``` to save the training model, and be used for prediction. It is recommended for each department to have their own model for prediction
 
-# how to run
+# How to run
 1. run the ``` class_function.py ``` to manipulate the dataset
 2. run ``` model_n_report.py ``` train and save the model, here you can also do parameter tuning to tweak the accuracy
 3. run ``` main.py ``` to execute the program
 
-# implementation
+# Implementation
 if you want to deploy this program locally with your own dataset, it is recommended to
 1. change the file location of your training data, and create a new model at ``` model_n_report.py ```
 2. change which model to use on ``` main.py ```
