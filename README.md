@@ -5,10 +5,15 @@ a mix and match from opensource projects, also edited to fit my needs
 the file contains:
 
 ``` IBMemployee.csv ``` an open source employee dataset that contains attrition status, used for model training, consist of around 20-30 variables
+
 ``` IBMemployee - test.csv ``` same source as previous dataset, with attrition column removed
+
 ``` class_function.py ``` function to standardize dataset (std scaler and one-hot encoding)
+
 ``` model_n_report.py ``` to train the dataset, and generate classification report
+
 ``` main.py ``` execute the program
+
 ``` forest_model.bin ``` to save the training model, and be used for prediction. It is recommended for each department to have their own model for prediction
 
 # how to run
