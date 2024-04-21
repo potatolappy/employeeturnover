@@ -1,29 +1,8 @@
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
-
 import warnings
 warnings.filterwarnings('ignore')
-
-# Function to preprocess categorical columns
-# so that the random classifier function can perform with correct datatypes
-
-def preprocess_cat_columns(data):
-    data["JobRole"] = data["JobRole"].map({'Healthcare Representative':1,
-                            'Human Resources':2,
-                            'Laboratory Technician':3,
-                            'Manager':4,
-                            'Manufacturing Director':5,
-                            'Research Director':6,
-                            'Research Scientist':7,
-                            'Sales Executive':8,
-                            'Sales Representative':9})
-
-    data["Gender"] = data["Gender"].map({'Male':1,
-                            'Female':2})
-    return data
 
 # Number pipeline transformer
 def num_pipeline_transformer(data):
@@ -39,7 +18,6 @@ def num_pipeline_transformer(data):
     numerics = ['int64']
 
     num_attrs = data.select_dtypes(include=numerics)
-
     num_pipeline = Pipeline([
         ('std_scaler', StandardScaler()),
         ])
@@ -65,4 +43,3 @@ def pipeline_transformer(data):
     ])
     prepared_data = full_pipeline.fit_transform(data)
     return prepared_data
-
