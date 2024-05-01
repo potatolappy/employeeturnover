@@ -16,6 +16,12 @@ the file contains:
 
 ``` forest_model.bin ``` to save the training model, and be used for prediction. It is recommended for each department to have their own model for prediction
 
+# note
+1. the model accuracy report indicate better performance on predicting no class than yes class, this might be because of class imbalance, recommended in real life uses to either
+   - load more rows, preferrably 10k
+   - or make sure the dataset composition include more than 40% of yes class
+  need to learn this stuff further
+
 # How to run
 1. run the ``` class_function.py ``` to manipulate the dataset
 2. run ``` model_n_report.py ``` train and save the model, here you can also do parameter tuning to tweak the accuracy
@@ -26,5 +32,7 @@ if you want to deploy this program locally with your own dataset, it is recommen
 1. change the file location of your training data, and create a new model at ``` model_n_report.py ```
 2. change which model to use on ``` main.py ```
 3. it is recommended to do feature engineering (selecting variables to train the model) on the excel file itself to make the code cleaner and more compact
+
+
 
    
