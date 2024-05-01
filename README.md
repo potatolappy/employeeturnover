@@ -16,7 +16,7 @@ the file contains:
 
 ``` forest_model.bin ``` to save the training model, and be used for prediction. It is recommended for each department to have their own model for prediction
 
-# note
+# Note
 1. the model accuracy report indicate better performance on predicting no class than yes class, this might be because of class imbalance, recommended in real life uses to either
    - load more rows, preferrably 10k
    - or make sure the dataset composition include more than 40% of yes class
